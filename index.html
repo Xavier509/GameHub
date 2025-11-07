@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unblocked Games Site</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">UGS</div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search games...">
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All Games</button>
+            <button class="category-btn" data-category="popular">Popular</button>
+            <button class="category-btn" data-category="minecraft">Minecraft</button>
+            <button class="category-btn" data-category="papas">Papa's Games</button>
+            <button class="category-btn" data-category="fighting">Fighting</button>
+            <button class="category-btn" data-category="racing">Racing</button>
+        </div>
+
+        <div class="games-container" id="gamesContainer">
+            <!-- Games will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Unblocked Games Site</p>
+    </footer>
+
+    <script src="js/games.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
