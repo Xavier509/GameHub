@@ -830,24 +830,46 @@
 
             fullscreenBtn.addEventListener('click', () => {
                 if (currentGamePath) {
-                    const win = window.open('about:blank', '_blank');
-                    const fullPath = window.location.origin + '/' + currentGamePath;
-                    win.document.write(`
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <title>${modalTitle.textContent}</title>
-                            <style>
-                                body { margin: 0; padding: 0; overflow: hidden; background: #000; }
-                                iframe { width: 100vw; height: 100vh; border: none; display: block; }
-                            </style>
-                        </head>
-                        <body>
-                            <iframe src="${fullPath}" allowfullscreen></iframe>
-                        </body>
-                        </html>
-                    `);
-                    win.document.close();
+                    const popup = window.open('about:blank', '_blank');
+                    
+                    setTimeout(() => {
+                        if (!popup || popup.closed) {
+                            alert('Please allow popups for this site. Doing so will allow us to open the game in an about:blank tab and prevent this site from showing up in your history.');
+                        } else {
+                            const doc = popup.document;
+                            const iframe = doc.createElement('iframe');
+                            const style = iframe.style;
+                            const link = doc.createElement('link');
+
+                            const name = localStorage.getItem('name') || 'My Drive - Google Drive';
+                            const icon = localStorage.getItem('icon') || 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png';
+
+                            doc.title = name;
+                            link.rel = 'icon';
+                            link.href = icon;
+
+                            const fullPath = window.location.origin + '/' + currentGamePath;
+                            iframe.src = fullPath;
+                            style.position = 'fixed';
+                            style.top = style.bottom = style.left = style.right = 0;
+                            style.border = style.outline = 'none';
+                            style.width = style.height = '100%';
+
+                            doc.head.appendChild(link);
+                            doc.body.appendChild(iframe);
+
+                            // Add beforeunload warning
+                            const script = doc.createElement('script');
+                            script.textContent = `
+                                window.onbeforeunload = function (event) {
+                                    const confirmationMessage = 'Leave Site?';
+                                    (event || window.event).returnValue = confirmationMessage;
+                                    return confirmationMessage;
+                                };
+                            `;
+                            doc.head.appendChild(script);
+                        }
+                    }, 100);
                 }
             });
 
