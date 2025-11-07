@@ -3,39 +3,846 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unblocked Games Site</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>GameHub - Your Gateway to Endless Entertainment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f1419;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo .game {
+            color: #a855f7;
+        }
+
+        .logo .hub {
+            color: #fff;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            background: #1a2332;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #a855f7;
+        }
+
+        .search-input::placeholder {
+            color: #718096;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+            font-size: 1.2rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 2rem;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #a855f7;
+        }
+
+        .nav-btn.active {
+            background: #a855f7;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: #a78bfa;
+            font-size: 1.2rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .home-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .featured-section, .proxies-section {
+            background: #1a2332;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #2d3748;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .proxy-item {
+            background: #0f1419;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #2d3748;
+        }
+
+        .proxy-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .proxy-url {
+            color: #a78bfa;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            float: right;
+        }
+
+        .status-badge.online {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .status-badge.offline {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .games-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .category-filter {
+            padding: 0.75rem 1.5rem;
+            background: #1a2332;
+            border: 1px solid #2d3748;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background: #1a2332;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #2d3748;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .game-info {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-description {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #a855f7;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .proxy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .proxy-card {
+            background: #1a2332;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #2d3748;
+        }
+
+        .proxy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .open-proxy-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #a855f7, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .open-proxy-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        .game-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .modal-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 0.75rem 1.5rem;
+            background: #a855f7;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .modal-btn:hover {
+            background: #8b5cf6;
+        }
+
+        .close-btn {
+            background: #ef4444;
+        }
+
+        .close-btn:hover {
+            background: #dc2626;
+        }
+
+        .game-frame-container {
+            flex: 1;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .chat-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #a78bfa;
+        }
+
+        @media (max-width: 768px) {
+            .home-content {
+                grid-template-columns: 1fr;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .game-modal {
+                padding: 1rem;
+            }
+
+            .games-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-input {
+                max-width: 100% !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">UGS</div>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search games...">
-            </div>
+    <div class="header">
+        <div class="logo">
+            <span class="game">Game</span><span class="hub">Hub</span>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-input" id="mainSearch" placeholder="Search games, proxies...">
+            <span class="search-icon">🔍</span>
+        </div>
+        <nav class="nav">
+            <button class="nav-btn active" data-section="home">
+                🏠 Home
+            </button>
+            <button class="nav-btn" data-section="games">
+                🎮 Games
+            </button>
+            <button class="nav-btn" data-section="proxies">
+                🔗 Proxies
+            </button>
         </nav>
-    </header>
+    </div>
 
-    <main>
-        <div class="categories">
-            <button class="category-btn active" data-category="all">All Games</button>
-            <button class="category-btn" data-category="popular">Popular</button>
-            <button class="category-btn" data-category="minecraft">Minecraft</button>
-            <button class="category-btn" data-category="papas">Papa's Games</button>
-            <button class="category-btn" data-category="fighting">Fighting</button>
-            <button class="category-btn" data-category="racing">Racing</button>
+    <div class="container">
+        <!-- Home Section -->
+        <section class="section active" id="home">
+            <div class="hero">
+                <h1>Welcome to the Future of Gaming</h1>
+                <p>Your gateway to endless entertainment</p>
+            </div>
+            <div class="home-content">
+                <div class="featured-section">
+                    <h2 class="section-title">Featured Games</h2>
+                    <div id="featuredGamesContainer"></div>
+                </div>
+                <div class="proxies-section">
+                    <h2 class="section-title">Active Proxies</h2>
+                    <div id="activeProxiesContainer"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section class="section" id="games">
+            <div class="games-header">
+                <input type="text" class="search-input" id="gamesSearch" placeholder="Search games..." style="max-width: 400px;">
+                <select class="category-filter" id="categoryFilter">
+                    <option value="all">All Games</option>
+                </select>
+            </div>
+            <div class="games-grid" id="gamesGrid"></div>
+        </section>
+
+        <!-- Proxies Section -->
+        <section class="section" id="proxies">
+            <div class="proxy-list" id="proxyList"></div>
+        </section>
+    </div>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalGameTitle">Game Title</h2>
+            <div class="modal-controls">
+                <button class="modal-btn" id="fullscreenBtn">⛶ Fullscreen</button>
+                <button class="modal-btn close-btn" id="closeModalBtn">✕ Close</button>
+            </div>
         </div>
-
-        <div class="games-container" id="gamesContainer">
-            <!-- Games will be dynamically loaded here -->
+        <div class="game-frame-container">
+            <iframe class="game-frame" id="gameFrame"></iframe>
         </div>
-    </main>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 Unblocked Games Site</p>
-    </footer>
+    <button class="chat-button">💬</button>
 
-    <script src="js/games.js"></script>
-    <script src="js/script.js"></script>
+    <script>
+        // Proxy configuration - Edit these as needed
+        const proxies = [
+            {
+                name: 'Interstellar',
+                url: 'https://interstellarbynirbytes2.vercel.app/',
+                status: 'online'
+            },
+            {
+                name: 'Shadow',
+                url: 'https://butidontvanttacos.duia.us/',
+                status: 'online'
+            },
+            {
+                name: 'Space',
+                url: 'https://use.gurdit.com/',
+                status: 'offline'
+            }
+        ];
+
+        let games = [];
+        let currentGames = [];
+        let categories = new Set(['all']);
+
+        // Auto-discover games from the games folder
+        async function discoverGames() {
+            const gamesFolder = 'games';
+            
+            // Try to read the games folder structure
+            // This assumes a structure like: games/game-name/index.html and games/game-name/metadata.json
+            
+            // For GitHub Pages, we'll need to manually check for common game folders
+            // You can expand this list or create a games.json file to list all games
+            const potentialGames = [
+                'minecraft',
+                'basket-random',
+                'retro-bowl',
+                'drift-hunters',
+                'slope',
+                '1v1-lol',
+                'run-3',
+                'cookie-clicker',
+                'geometry-dash',
+                'happy-wheels',
+                'tank-trouble',
+                'super-smash-flash-2',
+                'shell-shockers',
+                'krunker',
+                'tunnel-rush',
+                'bitlife',
+                'doom',
+                'pac-man',
+                'tetris',
+                'snake',
+                'flappy-bird',
+                'among-us',
+                'minecraft-classic',
+                'subway-surfers',
+                'temple-run',
+                '2048',
+                'cut-the-rope',
+                'angry-birds',
+                'fruit-ninja',
+                'crossy-road'
+            ];
+
+            const discoveredGames = [];
+
+            for (const gameName of potentialGames) {
+                try {
+                    // Try to fetch metadata.json
+                    const metadataResponse = await fetch(`${gamesFolder}/${gameName}/metadata.json`);
+                    
+                    if (metadataResponse.ok) {
+                        const metadata = await metadataResponse.json();
+                        discoveredGames.push({
+                            title: metadata.title || formatGameName(gameName),
+                            description: metadata.description || 'No description available',
+                            category: metadata.category || 'action',
+                            image: `${gamesFolder}/${gameName}/${metadata.icon || 'icon.png'}`,
+                            path: `${gamesFolder}/${gameName}/index.html`,
+                            folder: gameName
+                        });
+                        categories.add(metadata.category || 'action');
+                    } else {
+                        // If no metadata, check if index.html exists
+                        const indexResponse = await fetch(`${gamesFolder}/${gameName}/index.html`, { method: 'HEAD' });
+                        if (indexResponse.ok) {
+                            discoveredGames.push({
+                                title: formatGameName(gameName),
+                                description: 'Click to play!',
+                                category: 'action',
+                                image: `${gamesFolder}/${gameName}/icon.png`,
+                                path: `${gamesFolder}/${gameName}/index.html`,
+                                folder: gameName
+                            });
+                            categories.add('action');
+                        }
+                    }
+                } catch (error) {
+                    // Game doesn't exist, skip it
+                    continue;
+                }
+            }
+
+            return discoveredGames;
+        }
+
+        // Format game name from folder name
+        function formatGameName(folderName) {
+            return folderName
+                .split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+
+        // Initialize the site
+        async function initialize() {
+            // Show loading
+            document.getElementById('gamesGrid').innerHTML = '<div class="loading">Loading games...</div>';
+            
+            // Discover games
+            games = await discoverGames();
+            currentGames = [...games];
+
+            // Populate category filter
+            const categoryFilter = document.getElementById('categoryFilter');
+            categories.forEach(cat => {
+                if (cat !== 'all') {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+                    categoryFilter.appendChild(option);
+                }
+            });
+
+            // Render everything
+            renderGames();
+            renderFeaturedGames();
+            renderProxies();
+            setupSearch();
+            setupNavigation();
+            setupGameModal();
+        }
+
+        // Navigation
+        function setupNavigation() {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const section = btn.dataset.section;
+                    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                    document.getElementById(section).classList.add('active');
+                });
+            });
+        }
+
+        // Render games
+        function renderGames(gamesToRender = currentGames) {
+            const gamesGrid = document.getElementById('gamesGrid');
+            
+            if (gamesToRender.length === 0) {
+                gamesGrid.innerHTML = '<div class="loading">No games found</div>';
+                return;
+            }
+
+            gamesGrid.innerHTML = gamesToRender.map(game => `
+                <div class="game-card" data-game="${game.path}" data-title="${game.title}">
+                    <div class="game-image">
+                        <img src="${game.image}" alt="${game.title}" style="width: 100%; height: 100%; object-fit: cover;" 
+                             onerror="this.parentElement.innerHTML='🎮'">
+                    </div>
+                    <div class="game-info">
+                        <div class="game-title">${game.title}</div>
+                        <div class="game-description">${game.description}</div>
+                        <span class="game-category">${game.category}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const gamePath = card.dataset.game;
+                    const gameTitle = card.dataset.title;
+                    openGame(gameTitle, gamePath);
+                });
+            });
+        }
+
+        // Render featured games on home
+        function renderFeaturedGames() {
+            const container = document.getElementById('featuredGamesContainer');
+            const featured = games.slice(0, 3);
+            
+            if (featured.length === 0) {
+                container.innerHTML = '<div class="loading">No games available</div>';
+                return;
+            }
+
+            container.innerHTML = featured.map(game => `
+                <div class="game-card" data-game="${game.path}" data-title="${game.title}" style="margin-bottom: 1rem;">
+                    <div class="game-image">
+                        <img src="${game.image}" alt="${game.title}" style="width: 100%; height: 100%; object-fit: cover;" 
+                             onerror="this.parentElement.innerHTML='🎮'">
+                    </div>
+                    <div class="game-info">
+                        <div class="game-title">${game.title}</div>
+                        <span class="game-category">${game.category}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            container.querySelectorAll('.game-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const gamePath = card.dataset.game;
+                    const gameTitle = card.dataset.title;
+                    openGame(gameTitle, gamePath);
+                });
+            });
+        }
+
+        // Render proxies
+        function renderProxies() {
+            const proxyList = document.getElementById('proxyList');
+            proxyList.innerHTML = proxies.map(proxy => `
+                <div class="proxy-card">
+                    <div class="proxy-header">
+                        <div>
+                            <div class="proxy-name">${proxy.name}</div>
+                            <div class="proxy-url">${proxy.url}</div>
+                        </div>
+                        <span class="status-badge ${proxy.status}">${proxy.status}</span>
+                    </div>
+                    <button class="open-proxy-btn" onclick="window.open('${proxy.url}', '_blank')">
+                        Open Proxy
+                    </button>
+                </div>
+            `).join('');
+
+            // Also render in home section
+            const activeContainer = document.getElementById('activeProxiesContainer');
+            activeContainer.innerHTML = proxies.filter(p => p.status === 'online').map(proxy => `
+                <div class="proxy-item">
+                    <span class="status-badge ${proxy.status}">${proxy.status}</span>
+                    <div class="proxy-name">${proxy.name}</div>
+                    <div class="proxy-url">${proxy.url}</div>
+                </div>
+            `).join('');
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const mainSearch = document.getElementById('mainSearch');
+            const gamesSearch = document.getElementById('gamesSearch');
+
+            [mainSearch, gamesSearch].forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase();
+                    const filtered = games.filter(game => 
+                        game.title.toLowerCase().includes(query) ||
+                        game.description.toLowerCase().includes(query) ||
+                        game.category.toLowerCase().includes(query)
+                    );
+                    currentGames = filtered;
+                    renderGames(filtered);
+                });
+            });
+
+            // Category filter
+            document.getElementById('categoryFilter').addEventListener('change', (e) => {
+                const category = e.target.value;
+                if (category === 'all') {
+                    currentGames = [...games];
+                    renderGames(games);
+                } else {
+                    const filtered = games.filter(game => game.category === category);
+                    currentGames = filtered;
+                    renderGames(filtered);
+                }
+            });
+        }
+
+        // Game modal
+        function setupGameModal() {
+            const gameModal = document.getElementById('gameModal');
+            const gameFrame = document.getElementById('gameFrame');
+            const modalTitle = document.getElementById('modalGameTitle');
+            const closeBtn = document.getElementById('closeModalBtn');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            let currentGamePath = '';
+
+            window.openGame = function(title, path) {
+                currentGamePath = path;
+                modalTitle.textContent = title;
+                gameFrame.src = path;
+                gameModal.classList.add('active');
+            };
+
+            closeBtn.addEventListener('click', () => {
+                gameModal.classList.remove('active');
+                gameFrame.src = '';
+            });
+
+            fullscreenBtn.addEventListener('click', () => {
+                if (currentGamePath) {
+                    const win = window.open('about:blank', '_blank');
+                    const fullPath = window.location.origin + '/' + currentGamePath;
+                    win.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <title>${modalTitle.textContent}</title>
+                            <style>
+                                body { margin: 0; padding: 0; overflow: hidden; background: #000; }
+                                iframe { width: 100vw; height: 100vh; border: none; display: block; }
+                            </style>
+                        </head>
+                        <body>
+                            <iframe src="${fullPath}" allowfullscreen></iframe>
+                        </body>
+                        </html>
+                    `);
+                    win.document.close();
+                }
+            });
+
+            // Close modal on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && gameModal.classList.contains('active')) {
+                    gameModal.classList.remove('active');
+                    gameFrame.src = '';
+                }
+            });
+        }
+
+        // Initialize the site when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initialize);
+        } else {
+            initialize();
+        }
+    </script>
 </body>
 </html>
