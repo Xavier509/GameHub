@@ -409,27 +409,7 @@
             to { transform: rotate(360deg); }
         }
 
-        .chat-button {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: transform 0.3s;
-        }
 
-        .chat-button:hover {
-            transform: scale(1.1);
-        }
 
         .loading {
             text-align: center;
@@ -543,7 +523,7 @@
         </div>
     </div>
 
-    <button class="chat-button">💬</button>
+
 
     <script>
         // Configuration - Lazy loaded game list
@@ -848,7 +828,10 @@
                             link.rel = 'icon';
                             link.href = icon;
 
-                            const fullPath = window.location.origin + '/' + currentGamePath;
+                            // Use absolute path construction to ensure proper loading
+                            const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                            const fullPath = baseUrl + currentGamePath;
+                            
                             iframe.src = fullPath;
                             style.position = 'fixed';
                             style.top = style.bottom = style.left = style.right = 0;
