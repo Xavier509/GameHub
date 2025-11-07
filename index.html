@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameHub - Your Gateway to Endless Entertainment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,8 +15,8 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #0f1419;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e1a;
             color: #fff;
             min-height: 100vh;
         }
@@ -24,9 +27,11 @@
         }
 
         .logo {
-            font-size: 3rem;
-            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
+            font-style: italic;
         }
 
         .logo .game {
@@ -35,6 +40,7 @@
 
         .logo .hub {
             color: #fff;
+            font-style: normal;
         }
 
         .search-container {
@@ -91,6 +97,7 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s;
+            font-weight: 500;
         }
 
         .nav-btn:hover {
@@ -115,6 +122,7 @@
         .hero h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .hero p {
@@ -147,6 +155,7 @@
         .section-title {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
         .proxy-item {
@@ -158,7 +167,7 @@
         }
 
         .proxy-name {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
         }
@@ -174,8 +183,9 @@
             padding: 0.4rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 700;
             float: right;
+            text-transform: lowercase;
         }
 
         .status-badge.online {
@@ -242,7 +252,7 @@
 
         .game-title {
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
@@ -250,6 +260,7 @@
             color: #a0aec0;
             font-size: 0.9rem;
             margin-bottom: 1rem;
+            line-height: 1.5;
         }
 
         .game-category {
@@ -258,6 +269,7 @@
             background: #a855f7;
             border-radius: 6px;
             font-size: 0.85rem;
+            text-transform: lowercase;
         }
 
         .proxy-list {
@@ -288,7 +300,7 @@
             border-radius: 12px;
             color: #fff;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             transition: transform 0.2s;
         }
@@ -323,7 +335,7 @@
 
         .modal-title {
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .modal-controls {
@@ -339,6 +351,7 @@
             color: #fff;
             cursor: pointer;
             font-size: 1rem;
+            font-weight: 600;
             transition: background 0.3s;
         }
 
@@ -500,7 +513,41 @@
     <button class="chat-button">💬</button>
 
     <script>
-        // Proxy configuration - Edit these as needed
+        // Configuration - EDIT THIS to match your setup
+        const CONFIG = {
+            gamesFolder: 'games',
+            // List all your game files here (without .html extension)
+            gameFiles: [
+                'cl1',
+                'cl2048',
+                'minecraft',
+                'basket-random',
+                'retro-bowl',
+                'drift-hunters',
+                'slope',
+                '1v1-lol',
+                'run-3',
+                'cookie-clicker',
+                'geometry-dash',
+                'tank-trouble',
+                'shell-shockers',
+                'tunnel-rush',
+                'bitlife',
+                'doom',
+                'pac-man',
+                'tetris',
+                'snake',
+                'flappy-bird',
+                'subway-surfers',
+                'temple-run',
+                'cut-the-rope',
+                'angry-birds',
+                'fruit-ninja',
+                'crossy-road'
+            ]
+        };
+
+        // Proxy configuration
         const proxies = [
             {
                 name: 'Interstellar',
@@ -523,106 +570,69 @@
         let currentGames = [];
         let categories = new Set(['all']);
 
-        // Auto-discover games from the games folder
-        async function discoverGames() {
-            const gamesFolder = 'games';
-            
-            // Try to read the games folder structure
-            // This assumes a structure like: games/game-name/index.html and games/game-name/metadata.json
-            
-            // For GitHub Pages, we'll need to manually check for common game folders
-            // You can expand this list or create a games.json file to list all games
-            const potentialGames = [
-                'minecraft',
-                'basket-random',
-                'retro-bowl',
-                'drift-hunters',
-                'slope',
-                '1v1-lol',
-                'run-3',
-                'cookie-clicker',
-                'geometry-dash',
-                'happy-wheels',
-                'tank-trouble',
-                'super-smash-flash-2',
-                'shell-shockers',
-                'krunker',
-                'tunnel-rush',
-                'bitlife',
-                'doom',
-                'pac-man',
-                'tetris',
-                'snake',
-                'flappy-bird',
-                'among-us',
-                'minecraft-classic',
-                'subway-surfers',
-                'temple-run',
-                '2048',
-                'cut-the-rope',
-                'angry-birds',
-                'fruit-ninja',
-                'crossy-road'
-            ];
-
-            const discoveredGames = [];
-
-            for (const gameName of potentialGames) {
-                try {
-                    // Try to fetch metadata.json
-                    const metadataResponse = await fetch(`${gamesFolder}/${gameName}/metadata.json`);
-                    
-                    if (metadataResponse.ok) {
-                        const metadata = await metadataResponse.json();
-                        discoveredGames.push({
-                            title: metadata.title || formatGameName(gameName),
-                            description: metadata.description || 'No description available',
-                            category: metadata.category || 'action',
-                            image: `${gamesFolder}/${gameName}/${metadata.icon || 'icon.png'}`,
-                            path: `${gamesFolder}/${gameName}/index.html`,
-                            folder: gameName
-                        });
-                        categories.add(metadata.category || 'action');
-                    } else {
-                        // If no metadata, check if index.html exists
-                        const indexResponse = await fetch(`${gamesFolder}/${gameName}/index.html`, { method: 'HEAD' });
-                        if (indexResponse.ok) {
-                            discoveredGames.push({
-                                title: formatGameName(gameName),
-                                description: 'Click to play!',
-                                category: 'action',
-                                image: `${gamesFolder}/${gameName}/icon.png`,
-                                path: `${gamesFolder}/${gameName}/index.html`,
-                                folder: gameName
-                            });
-                            categories.add('action');
-                        }
-                    }
-                } catch (error) {
-                    // Game doesn't exist, skip it
-                    continue;
-                }
-            }
-
-            return discoveredGames;
-        }
-
-        // Format game name from folder name
-        function formatGameName(folderName) {
-            return folderName
+        // Format game name from filename
+        function formatGameName(filename) {
+            return filename
+                .replace(/cl/i, '')
                 .split('-')
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ');
         }
 
+        // Detect category from game name
+        function detectCategory(name) {
+            const nameLower = name.toLowerCase();
+            if (nameLower.includes('basket') || nameLower.includes('bowl') || nameLower.includes('soccer')) return 'sports';
+            if (nameLower.includes('drift') || nameLower.includes('racing') || nameLower.includes('car')) return 'racing';
+            if (nameLower.includes('run') || nameLower.includes('rush') || nameLower.includes('surfer')) return 'adventure';
+            if (nameLower.includes('2048') || nameLower.includes('puzzle') || nameLower.includes('tetris')) return 'puzzle';
+            return 'action';
+        }
+
+        // Load games from configuration
+        async function loadGames() {
+            const loadedGames = [];
+            
+            for (const gameFile of CONFIG.gameFiles) {
+                const gamePath = `${CONFIG.gamesFolder}/${gameFile}.html`;
+                
+                try {
+                    // Try to load the game file
+                    const response = await fetch(gamePath, { method: 'HEAD' });
+                    
+                    if (response.ok) {
+                        const title = formatGameName(gameFile);
+                        const category = detectCategory(title);
+                        
+                        loadedGames.push({
+                            title: title,
+                            description: `Play ${title} online`,
+                            category: category,
+                            image: `${CONFIG.gamesFolder}/${gameFile}-icon.png`,
+                            path: gamePath,
+                            id: gameFile
+                        });
+                        
+                        categories.add(category);
+                    }
+                } catch (error) {
+                    console.log(`Game ${gameFile} not found, skipping...`);
+                }
+            }
+            
+            return loadedGames;
+        }
+
         // Initialize the site
         async function initialize() {
             // Show loading
-            document.getElementById('gamesGrid').innerHTML = '<div class="loading">Loading games...</div>';
+            document.getElementById('gamesGrid').innerHTML = '<div class="loading">🎮 Loading games...</div>';
             
-            // Discover games
-            games = await discoverGames();
+            // Load games from config
+            games = await loadGames();
             currentGames = [...games];
+
+            console.log(`Loaded ${games.length} games`);
 
             // Populate category filter
             const categoryFilter = document.getElementById('categoryFilter');
@@ -642,6 +652,22 @@
             setupSearch();
             setupNavigation();
             setupGameModal();
+            setupCategoryFilter();
+        }
+
+        // Setup category filter
+        function setupCategoryFilter() {
+            document.getElementById('categoryFilter').addEventListener('change', (e) => {
+                const category = e.target.value;
+                if (category === 'all') {
+                    currentGames = [...games];
+                    renderGames(games);
+                } else {
+                    const filtered = games.filter(game => game.category === category);
+                    currentGames = filtered;
+                    renderGames(filtered);
+                }
+            });
         }
 
         // Navigation
@@ -663,7 +689,7 @@
             const gamesGrid = document.getElementById('gamesGrid');
             
             if (gamesToRender.length === 0) {
-                gamesGrid.innerHTML = '<div class="loading">No games found</div>';
+                gamesGrid.innerHTML = '<div class="loading">No games found. Make sure your game files are in the "games" folder.</div>';
                 return;
             }
 
@@ -697,7 +723,7 @@
             const featured = games.slice(0, 3);
             
             if (featured.length === 0) {
-                container.innerHTML = '<div class="loading">No games available</div>';
+                container.innerHTML = '<div class="loading">No games available yet</div>';
                 return;
             }
 
@@ -757,30 +783,23 @@
             const mainSearch = document.getElementById('mainSearch');
             const gamesSearch = document.getElementById('gamesSearch');
 
-            [mainSearch, gamesSearch].forEach(input => {
-                input.addEventListener('input', (e) => {
-                    const query = e.target.value.toLowerCase();
-                    const filtered = games.filter(game => 
-                        game.title.toLowerCase().includes(query) ||
-                        game.description.toLowerCase().includes(query) ||
-                        game.category.toLowerCase().includes(query)
-                    );
-                    currentGames = filtered;
-                    renderGames(filtered);
-                });
+            function performSearch(query) {
+                const queryLower = query.toLowerCase();
+                const filtered = games.filter(game => 
+                    game.title.toLowerCase().includes(queryLower) ||
+                    game.description.toLowerCase().includes(queryLower) ||
+                    game.category.toLowerCase().includes(queryLower)
+                );
+                currentGames = filtered;
+                renderGames(filtered);
+            }
+
+            mainSearch.addEventListener('input', (e) => {
+                performSearch(e.target.value);
             });
 
-            // Category filter
-            document.getElementById('categoryFilter').addEventListener('change', (e) => {
-                const category = e.target.value;
-                if (category === 'all') {
-                    currentGames = [...games];
-                    renderGames(games);
-                } else {
-                    const filtered = games.filter(game => game.category === category);
-                    currentGames = filtered;
-                    renderGames(filtered);
-                }
+            gamesSearch.addEventListener('input', (e) => {
+                performSearch(e.target.value);
             });
         }
 
