@@ -416,67 +416,6 @@
             to { transform: rotate(360deg); }
         }
 
-        .episode-selector {
-            background: #1a2332;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid #2d3748;
-        }
-
-        .season-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .season-tab {
-            padding: 0.5rem 1rem;
-            background: #0f1419;
-            border: 1px solid #2d3748;
-            border-radius: 8px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .season-tab:hover {
-            background: #2d3748;
-        }
-
-        .season-tab.active {
-            background: #a855f7;
-            border-color: #a855f7;
-        }
-
-        .episode-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 0.75rem;
-        }
-
-        .episode-btn {
-            padding: 0.75rem;
-            background: #0f1419;
-            border: 1px solid #2d3748;
-            border-radius: 8px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .episode-btn:hover {
-            background: #2d3748;
-            transform: translateY(-2px);
-        }
-
-        .episode-btn.active {
-            background: #a855f7;
-            border-color: #a855f7;
-        }
-
         .loading {
             text-align: center;
             padding: 2rem;
@@ -509,10 +448,6 @@
 
             .search-input {
                 max-width: 100% !important;
-            }
-
-            .episode-grid {
-                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
             }
         }
     </style>
@@ -579,7 +514,6 @@
                 <select class="category-filter" id="mediaTypeFilter">
                     <option value="all">All Content</option>
                     <option value="movie">Movies</option>
-                    <option value="show">TV Shows</option>
                 </select>
             </div>
             <div class="media-grid" id="mediaGrid"></div>
@@ -618,7 +552,6 @@
                 <button class="modal-btn close-btn" id="closeMediaBtn">✕ Close</button>
             </div>
         </div>
-        <div id="episodeSelectorContainer"></div>
         <div class="media-player-container">
             <div class="loading-spinner" id="mediaLoadingSpinner">
                 <div class="spinner"></div>
@@ -633,77 +566,68 @@
         const CONFIG = {
             gamesFolder: 'games',
             mediaFolder: 'movies&shows',
-            gameFiles: ['cl1','cl10bullet','cl10minutestildawn','clnullkevin','cl12minibattles','cl1on1soccer','cl1v1tennis','cl1v1maybeidk','cl2048','cl2048cupcakes','cl2doomy','cl2Dshooting','cl3dashy','cl3pandas','cl3pandasnight','cl3pandasbrazil','cl3pandasfantasy','cl3pandasjapan','cl3slices2','cl40escape','cl4thandgoal','cl500calibercontractz','cl60secondsburgerrun','clsantarun','cl8ballclassic','cl8ballpool','cl9007199254740992','cl99balls','cl99nightsitf','clthanksforremindingmeihadtofixthis','clabandoned32','clabsolutemadness','clacegangstertaxi','clachievementunlocked','clachievmentunlocked2','clachievmentunlocked3','clachillies1fr','clachillies2','clADOFAI','clADarkRoom','cladayintheoffice','cladventneon','clahoysurvival','clagariolite','clageofwar','clageofwar2','clagesofconflict','clarmormayhem2','clarsonate','clarewethereyet','clkoopasrevenge','clakoopasrevenge2','clalienhominid','clalienskyinvasion','clalientransporter','clallocation','clamaze','clstreangeropepolice','clamidstthesky','clamigopancho','clamigopancho2','clamigopancho3','clamigopancho4','clamigopancho5','clamigopancho6','clamigopancho7','clamongus','clamorphous','clancientsins','clangrybirds','clangrybirdsshowdown','clangrybirdsspace','clumstickmangameidkiforgor','clappleshooter','clappleworm','claquaparkio','clarcheryworldtour','clascent','classesmentexaminationque','clasteroidsALT','clattackhole','clasmallworldcup','clavalanche','claviamastersbuggy','clAwesomePirates','clawesomeplanes','clawesometanks','clawesometanks2','clbabeltower','clbabychiccoadventure','clbabysniperinvietnam','clbackrooms','clbackrooms2D','clbackyardbaseball','clbaconmaydie','clbadbodyguards','clbadicecream','clbadmondaysimulator','clbadparenting','clbadpiggies','clbadtimesim','clbaldisbasics','clbaldisbasicsremaster','clbaldidecomp','clbaldisfunnewschoolultimate','clballsandbricksgood','clballblast','clbanditgunslingers','clbananasimulator','clbankrobbery2','clbarryhasasecret','clbas','clbaseballbros','clbasketbattle','clbasketbros','clbasketrandom','clbasketslamdunk2','clbasketballfrvr','clbballlegend','clbasketballstars','clbatterup','clbattles','clbattlekarts','clbattlesim','clbazookaboy','clbeachboxingsim','clbearbarians','clbearsus','clbergentruck201x','clbfdia5b','clbigicetowertinysquare','clbigneontowertinysquare','clbigshotboxing2','clBig_Time_Butter_Baron','clbtts','clbtts2','clbindingofisaccsheeptime','cltboilambeternal','clbioevil4','clbitlife','clbitplanes','clblackjack','clblackjackbattle','clblacksmithlab','clblastronaut','clblazedrifter','clbleachvsnaruto','clblightborne','clblobsstory2','clblockblast','clblockpost','clblockthepig','clblockydemolitionderby','clblockysnakes','clbloodtournament','clbloodmoney','clbloons','clbloons2','clbloonspp1','clbloonspp2','clbloonspp3','clbloonspp4','clbloonspp5','clblumgiracers','clbobtherobber','clbobtherobber2','clbobtherobber5','clbollybeat','clboomslingers','clbottlecracks','clbottlejump3d','clbouncemasters','clbounceback','clbouncymotors','clBountyOfOne','clbowmasters','clboxhead2playrooms','clboxheadnightmare','clboxinglive-2','clboxingrandom','clbridgerace','clbloonsTD1','clbloonsTD2','clbloonsTD3','clbloonsTD4','clbtd5','clbloonsTD6scratch','clbloxorz','clbubbleshooter','clbubbleshooterpirate','clbubbletanks','clbubbletanks2','clbubbletanks3','clbubbletanksarenas','clbubbletankstd','clbuildnowgg','clbunnyland','clburgerandfrights','clburritobison','clburritobisonlaunchalibre','clburritobisonrevenge','clcactusmccoy','clcactusmccoy2','clcannonballs3d','clcapybaraclicker','clcarcrash3','clcardrawing','clcareatscar2deluxe','clcarkingarena','clCartoonNetworkTableTennisUltimateTournament','clcastlewarsmodern','clcatmariogood','clcatmario','clcatslovecake2','clcavestory','clceleste','clceleste2','clcellardoor','clcellmachine','clchaosfaction2','clcheckers','clcheesechompers3d','clcheshireinachatroom','clchess','clchessclassic','clchibiknight','clchickenscream','clchickenwar','clchoppyorc','clCircloO2','clciviballs','clciviballs2','clclashofvikings','clclassof09','clcleanupio','clclearvision','clclearvision2','clclearvision3','clclearvision4','clclearvision5','clclubbytheseal','clclusterrush','clcoalllcdemo','clcodenamegordon','clcoffeemaker','clcolorburst3d','clcolormatch','clcolorwatersort3d','clcombopool','clcookieclickercool','clcoreball','clcountmastersstickmangames','clcountersnipe','clcoverorange','clcoverorange2','clcoverorangeplayerspack','clcoverorangeplayerspack2','clcoverorangejourneygangsters','clcoverorangejourneyknights','clcoverorangejourneypirates','clcoverorangejourneyspace','clcrankit!','clcrazycars','clcrazycattle3D','clcrazychicken3D','cldubstep','clcrazymotorcycle','clcreeperworld2','clcrossyroad','clcrunchball3000','clcs1.6','clcsgoclicker','clcotlk','clcurveball','clcuttherope','clcyberbungracing','cldadgame','cldadnme','cldanktomb','cldeadestate','cldeadplate','cldeadzed','cldeadzed2','cldeadlydescent','cldeathchase','cldecision','cldecision2','cldecision3','cldecisionmedieval','cldeepersleep','cldeepestsword','cldeepsleep','cldefendyourcastle','cldefendyournuts','cldefendyournuts2','cldeltarune','cldeltatraveler','cldemolitionderbycrashracing','cldiamondhollow','cldiamondhollow2','cldieinthedungeon','cldigdeep','cldigtochina','cldiredecks','cldoblox','cldogeminer','cldogeminer2','cldokidokiliteratureclub','cldontescape','cldontescape2','cldontescape3','cldoodlejumpgoober','cldoom2d','clhl2doom','cldoomemscripten','cldoomgallery','cldoom3pack','cldoomzio','cldbsniper','cldouchebaglife','cldouchebagworkout','cldbzdevolution','cldrawclimber','cldrawtheline','cldreader','cldreadheadparkour','cldrweedgaster','cldriftboss','cldrifthuntersmerge','cldrivemady','cldrivenwild','clducklife','clducklife2','clducklife3','clducklife4','clducklfe5','clducklifespace','clducklifebattle','clducklingsio','cldud','cldukenukem3d','cldumpling','cldungeondeck','cldungeonraid','cldungeonsanddegenerategamblers','cldunkshot','clduskchild','cldyingdreams','cleagleride','clearntodie','clearntodie2','clearthtaken','clearthtaken2','clearthtaken3','cledelweiss','cledyscarsimulator','cleffinghail','cleffingmachines','cleffingworms','cleffingzombies','clegg','clelasticface','clelectricman2','clenchain','clendlesswar4','clendlesswar5wow','clendlesswar7','clepicbattlefantasy5','clescalatingduel','clescaperoad','clescaperoad-2','clevilglitch','clevolution','clextremerun3d','clfactoryballs','clfactoryballs2','clfactoryballs3','clfactoryballs4','clfairytalevsonepiece','clfancypantsadventure','clfancypantsadventure2','clfancypantsadventure3','clfpa4p1','clfpa4p2','clfancysnowboarding','clfashionbattle','clfattygenius','clfearstofathomhomealone','clfeedus','clfeedus2','clfeedus3','clfeedus4','clfeedus5','clfinalearth2','clFFsonic1','clFFsonic2','clFFsonic3','clFFsonic4','clFFsonic5','clFFsonic61','clFFsonic62','clfinalninja','clfireblob','clfireboyandwatergirl','clfireboyandwatergirl2','clfireboyandwatergirl3','clfisheatgettingbig','clfisquarium','clfnac1','clfnac2','clfivenightsatbaldisredone','clfivenightsatshrekshotel','clflappydunk','clfloodrunner','clfloodrunner2','clfloodrunner4','clfluidism','clFNAF','clFNAF2','clFNAF3','clFNAF4','clfnaf4halloween','clfnafps','clfnafucn','clfnafsl','clfnafworldd','clfocus','clfootballbros','clfootballlegends','clfolderdungeon','clforknsausage','clfortzone','clfreegemas','clfreerider','clfreerider2','clfreerider3','cl1on1tennis','clfridaynightfunkin','clfnfbside','clfnffleetway','clfnfdokitakeoverplus','clfnfdropandroll','clfnfgamebreakerbundle','clhitsinglereal','clfnfhorkglorpgloop','clfnfindiecross','clmariomadness','clfnfmobmod','clfnfneo','clpibbyapocalypse','clfnfrevmixed','clfnfmidfight','clfnfselfpaced','clfnfshaggyxmatt','clfnfshucksv2','clsmbgameover','clfnftailsgetstrolled','clfnfwednesday-infedility','clfnfagoti','clfnfbfdi26','clcybersensation','clshaggy','clfnfsoft','clfnfcamelliarudeblaster','clgarcello','clfnfmiku','clfnfhex','clfnfhypnoslullaby','clfnfimposterv4','clfnfblackbetrayal','clfnfdesolation','clkapi','clourpleguy','clfnfpokepastaperdition','clfnfqt','clfnfrewrite','clfnfsky','clfnfsonicexe4','clfnftricky','clfnfwhitty','clfnfzardy','clfromrusttoash','clfruitninja','clfunnybattle','clfunnybattle2','clfunnymadracing','clfunnyshooter22','clgangstabean','clgangstabean2','clgangsterbros','clgenericfightermaybe','clgdlite','clgeometrydashscratch','clgeometryvibes','clgeorgeandtheprinter','clgetawayshootout','clgetontop','clGettothetopalthoughthereisnotop','clgetyoked','clgimmietheairpod','clgladdihoppers','clgloryhunters','clgoalsouthafrica','clgobble','clgoingballs','clgolddiggerfrvr','clgolfsunday','clgooglebaseball','clgoogledino','clgorescriptclassic','clgrandactionsimulator-ny','clgranny','clgranny22','clgranny3','clgranny2','clgravity','clgravitymod','clgrey-box-testing','clgrindcraft','clgrn','clgrowagarden','clgrowyourgarden','clgrowdenio','clguesstheiranswer','clgunblood','clguncho','clgunknight','clgunmayhem','clgunmayhem2goof','clgunmayhemredux','clgunnight','clgun-spin','clgymstack','clhalflife','clhandshakes','clhandsofwar','clhandulum','clhanger2','clhappyroom','clhappywheels','clhardwaretycoon','clHaroldsbadday','clharvestio','clhauntthehouse','clhei$t','clhelixjump','clhelpnobrakes','clstickminbreakingbank','clstickminescapingprison','clstickminfleecomplex','clstickminairship','clstickmanstealingdiamond','clhero3flyingrobot','clhextris','clhinohomo','clhidenseek','clhighstakes','clhighwayracer2','clhillclimbracinglite','clhipsterkickball','clhit8ox','clhobo','clhobo2','clhobo3','clhobo4','clhobo5','clhobo6','clhobo7','clhobovszombies','clholeio','clhouseofhazards','clhoverracerdrive','clhumanexpenditureprogram','clhungryknight','clhungrylamu','clhyppersandbox','clicedodo','clicypurplehead','clidlebreakout','clidledice','clidleidlegamedev','clidleminertycoon','cltrucksim','clinfinitecraft','clinkgame','clinnkeeper','clinteractivebuddy','clintoruins','clintospace','clintospace2','clintospace3','clintothedeepweb','clintrusion','cliqball','clironsnout','clislander','cliwbtg','cljacksmithencryptedorsmthn','cljailbreakobbbobob','cljefflings','cljellydadhero','cljellydrift','cljellytruckgood','cljetpackjoyride','cljetskiracing','cljetrush','cljohnnytrigger','cljohnnyupgrade','cljourneydownhill','cljsvecx','cljumpingshell','cljustoneboss','clkalikan','clkaratebros','clkarlson','clkartbros','clkillover','cliceagebaby','clkittencannon','clklifur','clknightmaretower','clkonkrio','clkourio','cllaceysflashgames','cllasthorizon','clleaderstrike','cllearntofly','cllearntofly2','cllearntofly3','cllearntoflyidle','clleveldevil','clleverwarriors','cllinerider','cllittlerunmo','cllockthedoor','cllonewolf','cllosangelesshark','cllowknight','cluckyblockobbyEUOPHRATESRIVER','clmadalinstuntcarsmultiplayerfixed','clmadnesss2010','clmadnessaccelerant','clclmadnessambulation','clmadnesscombatdefense','clmcfpsfbhd','clmadnessgemini','clmadnesshydraulic','clmadnessinteractive','clmadnessoffcolor','clmadnesspremediation','clmadnesscombatnexus','clmadnessretaliation','clmadskillsmotocross2','clmadstick','clmadnessstand','clmagictiles3','clmakesureitsclosed','clmanagod','marbleracer','clmariocombat','clmaskedforcesunlimited','clmastermindworldconquerer','clmatrixrampage','clmeatboyflash','clmedalofhonor','clmedievalshark','clmegachess','clmegaminer','clmergeroundracers','clmelonplayground','clmiamishark','clmightyknight','clmightyknight2','clmimic','clmindscape','clmineshooter','EaglercraftZ_1.11.2','Eaglercraft1.12','eaglercraft.1.5.2','Eaglercraft-Beta-1.7.3-Offline','clminecraft1-8-8','EaglercraftX 1.8.8(u29)','Shadow_Client','EaglercraftL_1.9_v0_7_0_Offline_Signed','Eaglercraft-Alpha-1.2.6-Offline','Eaglercraft-Beta-1.3-Offline','Dragonxclient','Eaglercraft-Indev-Offline','clblockcraftparkour','clblockcraftshooter','clminesweeperplus','clminhero','clminicrossword','clminishooters','clminitooth','clmiraginewar','clmobcontrolhtml5','clmoneyrush','clmonstertracks','clmonstertruckportstunt','clmonkeymart','clmotherload','clmotoroadrash','clmotox3mm','clmotox3m2','clmotox3m3','clmotox3mpoolparty','clmotox3mspookyland','clmotox3mwinter','clmountainbikeracer','clmrracer','clmultitask','clmutilate-a-doll','clmxoffroadmaster','clmyfriendpedro','clmyfriendpedroarena','cln','clnaturalselection','clnzp','clneonblaster','clneonrider','clnetattack','clneverendinglegacy','clnewgroundsrumble','clnewyorkshark','clnextdoor','clngon','clnightclubshowdown','clninjabrawl','clnitromemustdie','clnoobminer','clnotyourpawn','clnubbysnumberfactory','clNutsandBoltsScrewingPuzzle','clobby-99-will-lose','clobbyonlyup','clobeythegame','clofflineparadise','clomeganuggetclicker','clonebitadventure','clonenightasfreddy','clonepiecefighting','clonlyup','clÖoo','clʘ','cloperius','cloppositeday','clorbofcreation','closu','clovofixed','clovo2','clovodimensions','clpapalouienighthunt2','clpapalouiewhenburgersattack','clpapalouiewhenpizzasattack','clpapalouiewhensundaesattack','clpapabakeria','clpapasburgerIIIAAAAA','clpapascheeseria','clpapascupcakeria','clpapadonut','clpapasfreezeria','clpapashotdoggeria','clpapaspancakeria','clpapaspastaria','clpizzapapa','clpapasscooperia','clpapassushiria','clpapastacomia','clpapaswingeria','clpaperio','clpaperio3d','clpaperiomania','clparkingfury','clparkingfury2','clparkingfury3','clparkingrush','clpeacekeeper','clpeggle','clpenaltykicks','clpenguindiner','clpenguinpass','clpereelous','clperfecthotel','clphasma','clpicodriller','clpicohot','clpicolife','clpiconightpunkin','clpicosschool','clpicovsbeardx','clpiecesofcake','clpingpongchaos','clpinkbike','clpixelbattlegroundsio','clpixelcombat2','clpixelquestlostidols','clpixelshooter','clpixelspeedrun','clpixelwarfare','clpizzatower','clplangman','clpvz','clpvz2','clplazmaburst','clplinko','clplonky','clpogo3D','clpokemontowerdefense','clpolicepursuit2','clpolyold','polytrackbutnotflagged','clpoorbunny','clportal2d','clportaldefendersfastbreak','clportaldefendersTD','clportalflash','clporklike','clporter','clpossessquest','clpotatomanseeksthetroof','clpou','clpraxisfighterx','clprecivilationbronzeage','clprehistoricshark','clprimary','clpullfrog','clpunchthedrump','clpuppethockey','clpushyourluck','clquake3','clqwop','clwartheknight']
+            gameFiles: ['cl1','cl10bullets','cl10minutestildawn','clnullkevin','cl12minibattles','cl1on1soccer','cl1v1tennis','cl1v1maybeidk','cl2048','cl2048cupcakes','cl2doomy','cl2Dshooting','cl3dashy','cl3pandas','cl3pandasnight','cl3pandasbrazil','cl3pandasfantasy','cl3pandasjapan','cl3slices2','cl40escape','cl4thandgoal','cl500calibercontractz','cl60secondsburgerrun','clsantarun','cl8ballclassic','cl8ballpool','cl9007199254740992','cl99balls','cl99nightsitf','clthanksforremindingmeihadtofixthis','clabandoned32','clabsolutemadness','clacegangstertaxi','clachievementunlocked','clachievmentunlocked2','clachievmentunlocked3','clachillies1fr','clachillies2','clADOFAI','clADarkRoom','cladayintheoffice','cladventneon','clahoysurvival','clagariolite','clageofwar','clageofwar2','clagesofconflict','clarmormayhem2','clarsonate','clarewethereyet','clkoopasrevenge','clakoopasrevenge2','clalienhominid','clalienskyinvasion','clalientransporter','clallocation','clamaze','clstreangeropepolice','clamidstthesky','clamigopancho','clamigopancho2','clamigopancho3','clamigopancho4','clamigopancho5','clamigopancho6','clamigopancho7','clamongus','clamorphous','clancientsins','clangrybirds','clangrybirdsshowdown','clangrybirdsspace','clumstickmangameidkiforgor','clappleshooter','clappleworm','claquaparkio','clarcheryworldtour','clascent','classesmentexaminationque','clasteroidsALT','clattackhole','clasmallworldcup','clavalanche','claviamastersbuggy','clAwesomePirates','clawesomeplanes','clawesometanks','clawesometanks2','clbabeltower','clbabychiccoadventure','clbabysniperinvietnam','clbackrooms','clbackrooms2D','clbackyardbaseball','clbaconmaydie','clbadbodyguards','clbadicecream','clbadmondaysimulator','clbadparenting','clbadpiggies','clbadtimesim','clbaldisbasics','clbaldisbasicsremaster','clbaldidecomp','clbaldisfunnewschoolultimate','clballsandbricksgood','clballblast','clbanditgunslingers','clbananasimulator','clbankrobbery2','clbarryhasasecret','clbas','clbaseballbros','clbasketbattle','clbasketbros','clbasketrandom','clbasketslamdunk2','clbasketballfrvr','clbballlegend','clbasketballstars','clbatterup','clbattles','clbattlekarts','clbattlesim','clbazookaboy','clbeachboxingsim','clbearbarians','clbearsus','clbergentruck201x','clbfdia5b','clbigicetowertinysquare','clbigneontowertinysquare','clbigshotboxing2','clBig_Time_Butter_Baron','clbtts','clbtts2','clbindingofisaccsheeptime','cltboilambeternal','clbioevil4','clbitlife','clbitplanes','clblackjack','clblackjackbattle','clblacksmithlab','clblastronaut','clblazedrifter','clbleachvsnaruto','clblightborne','clblobsstory2','clblockblast','clblockpost','clblockthepig','clblockydemolitionderby','clblockysnakes','clbloodtournament','clbloodmoney','clbloons','clbloons2','clbloonspp1','clbloonspp2','clbloonspp3','clbloonspp4','clbloonspp5','clblumgiracers','clbobtherobber','clbobtherobber2','clbobtherobber5','clbollybeat','clboomslingers','clbottlecracks','clbottlejump3d','clbouncemasters','clbounceback','clbouncymotors','clBountyOfOne','clbowmasters','clboxhead2playrooms','clboxheadnightmare','clboxinglive-2','clboxingrandom','clbridgerace','clbloonsTD1','clbloonsTD2','clbloonsTD3','clbloonsTD4','clbtd5','clbloonsTD6scratch','clbloxorz','clbubbleshooter','clbubbleshooterpirate','clbubbletanks','clbubbletanks2','clbubbletanks3','clbubbletanksarenas','clbubbletankstd','clbuildnowgg','clbunnyland','clburgerandfrights','clburritobison','clburritobisonlaunchalibre','clburritobisonrevenge','clcactusmccoy','clcactusmccoy2','clcannonballs3d','clcapybaraclicker','clcarcrash3','clcardrawing','clcareatscar2deluxe','clcarkingarena','clCartoonNetworkTableTennisUltimateTournament','clcastlewarsmodern','clcatmariogood','clcatmario','clcatslovecake2','clcavestory','clceleste','clceleste2','clcellardoor','clcellmachine','clchaosfaction2','clcheckers','clcheesechompers3d','clcheshireinachatroom','clchess','clchessclassic','clchibiknight','clchickenscream','clchickenwar','clchoppyorc','clCircloO2','clciviballs','clciviballs2','clclashofvikings','clclassof09','clcleanupio','clclearvision','clclearvision2','clclearvision3','clclearvision4','clclearvision5','clclubbytheseal','clclusterrush','clcoalllcdemo','clcodenamegordon','clcoffeemaker','clcolorburst3d','clcolormatch','clcolorwatersort3d','clcombopool','clcookieclickercool','clcoreball','clcountmastersstickmangames','clcountersnipe','clcoverorange','clcoverorange2','clcoverorangeplayerspack','clcoverorangeplayerspack2','clcoverorangejourneygangsters','clcoverorangejourneyknights','clcoverorangejourneypirates','clcoverorangejourneyspace','clcrankit!','clcrazycars','clcrazycattle3D','clcrazychicken3D','cldubstep','clcrazymotorcycle','clcreeperworld2','clcrossyroad','clcrunchball3000','clcs1.6','clcsgoclicker','clcotlk','clcurveball','clcuttherope','clcyberbungracing','cldadgame','cldadnme','cldanktomb','cldeadestate','cldeadplate','cldeadzed','cldeadzed2','cldeadlydescent','cldeathchase','cldecision','cldecision2','cldecision3','cldecisionmedieval','cldeepersleep','cldeepestsword','cldeepsleep','cldefendyourcastle','cldefendyournuts','cldefendyournuts2','cldeltarune','cldeltatraveler','cldemolitionderbycrashracing','cldiamondhollow','cldiamondhollow2','cldieinthedungeon','cldigdeep','cldigtochina','cldiredecks','cldoblox','cldogeminer','cldogeminer2','cldokidokiliteratureclub','cldontescape','cldontescape2','cldontescape3','cldoodlejumpgoober','cldoom2d','clhl2doom','cldoomemscripten','cldoomgallery','cldoom3pack','cldoomzio','cldbsniper','cldouchebaglife','cldouchebagworkout','cldbzdevolution','cldrawclimber','cldrawtheline','cldreader','cldreadheadparkour','cldrweedgaster','cldriftboss','cldrifthuntersmerge','cldrivemady','cldrivenwild','clducklife','clducklife2','clducklife3','clducklife4','clducklfe5','clducklifespace','clducklifebattle','clducklingsio','cldud','cldukenukem3d','cldumpling','cldungeondeck','cldungeonraid','cldungeonsanddegenerategamblers','cldunkshot','clduskchild','cldyingdreams','cleagleride','clearntodie','clearntodie2','clearthtaken','clearthtaken2','clearthtaken3','cledelweiss','cledyscarsimulator','cleffinghail','cleffingmachines','cleffingworms','cleffingzombies','clegg','clelasticface','clelectricman2','clenchain','clendlesswar4','clendlesswar5wow','clendlesswar7','clepicbattlefantasy5','clescalatingduel','clescaperoad','clescaperoad-2','clevilglitch','clevolution','clextremerun3d','clfactoryballs','clfactoryballs2','clfactoryballs3','clfactoryballs4','clfairytalevsonepiece','clfancypantsadventure','clfancypantsadventure2','clfancypantsadventure3','clfpa4p1','clfpa4p2','clfancysnowboarding','clfashionbattle','clfattygenius','clfearstofathomhomealone','clfeedus','clfeedus2','clfeedus3','clfeedus4','clfeedus5','clfinalearth2','clFFsonic1','clFFsonic2','clFFsonic3','clFFsonic4','clFFsonic5','clFFsonic61','clFFsonic62','clfinalninja','clfireblob','clfireboyandwatergirl','clfireboyandwatergirl2','clfireboyandwatergirl3','clfisheatgettingbig','clfisquarium','clfnac1','clfnac2','clfivenightsatbaldisredone','clfivenightsatshrekshotel','clflappydunk','clfloodrunner','clfloodrunner2','clfloodrunner4','clfluidism','clFNAF','clFNAF2','clFNAF3','clFNAF4','clfnaf4halloween','clfnafps','clfnafucn','clfnafsl','clfnafworldd','clfocus','clfootballbros','clfootballlegends','clfolderdungeon','clforknsausage','clfortzone','clfreegemas','clfreerider','clfreerider2','clfreerider3','cl1on1tennis','clfridaynightfunkin','clfnfbside','clfnffleetway','clfnfdokitakeoverplus','clfnfdropandroll','clfnfgamebreakerbundle','clhitsinglereal','clfnfhorkglorpgloop','clfnfindiecross','clmariomadness','clfnfmobmod','clfnfneo','clpibbyapocalypse','clfnfrevmixed','clfnfmidfight','clfnfselfpaced','clfnfshaggyxmatt','clfnfshucksv2','clsmbgameover','clfnftailsgetstrolled','clfnfwednesday-infedility','clfnfagoti','clfnfbfdi26','clcybersensation','clshaggy','clfnfsoft','clfnfcamelliarudeblaster','clgarcello','clfnfmiku','clfnfhex','clfnfhypnoslullaby','clfnfimposterv4','clfnfblackbetrayal','clfnfdesolation','clkapi','clourpleguy','clfnfpokepastaperdition','clfnfqt','clfnfrewrite','clfnfsky','clfnfsonicexe4','clfnftricky','clfnfwhitty','clfnfzardy','clfromrusttoash','clfruitninja','clfunnybattle','clfunnybattle2','clfunnymadracing','clfunnyshooter22','clgangstabean','clgangstabean2','clgangsterbros','clgenericfightermaybe','clgdlite','clgeometrydashscratch','clgeometryvibes','clgeorgeandtheprinter','clgetawayshootout','clgetontop','clGettothetopalthoughthereisnotop','clgetyoked','clgimmietheairpod','clgladdihoppers','clgloryhunters','clgoalsouthafrica','clgobble','clgoingballs','clgolddiggerfrvr','clgolfsunday','clgooglebaseball','clgoogledino','clgorescriptclassic','clgrandactionsimulator-ny','clgranny','clgranny22','clgranny3','clgranny2','clgravity','clgravitymod','clgrey-box-testing','clgrindcraft','clgrn','clgrowagarden','clgrowyourgarden','clgrowdenio','clguesstheiranswer','clgunblood','clguncho','clgunknight','clgunmayhem','clgunmayhem2goof','clgunmayhemredux','clgunnight','clgun-spin','clgymstack','clhalflife','clhandshakes','clhandsofwar','clhandulum','clhanger2','clhappyroom','clhappywheels','clhardwaretycoon','clHaroldsbadday','clharvestio','clhauntthehouse','clhei$t','clhelixjump','clhelpnobrakes','clstickminbreakingbank','clstickminescapingprison','clstickminfleecomplex','clstickminairship','clstickmanstealingdiamond','clhero3flyingrobot','clhextris','clhinohomo','clhidenseek','clhighstakes','clhighwayracer2','clhillclimbracinglite','clhipsterkickball','clhit8ox','clhobo','clhobo2','clhobo3','clhobo4','clhobo5','clhobo6','clhobo7','clhobovszombies','clholeio','clhouseofhazards','clhoverracerdrive','clhumanexpenditureprogram','clhungryknight','clhungrylamu','clhyppersandbox','clicedodo','clicypurplehead','clidlebreakout','clidledice','clidleidlegamedev','clidleminertycoon','cltrucksim','clinfinitecraft','clinkgame','clinnkeeper','clinteractivebuddy','clintoruins','clintospace','clintospace2','clintospace3','clintothedeepweb','clintrusion','cliqball','clironsnout','clislander','cliwbtg','cljacksmithencryptedorsmthn','cljailbreakobbbobob','cljefflings','cljellydadhero','cljellydrift','cljellytruckgood','cljetpackjoyride','cljetskiracing','cljetrush','cljohnnytrigger','cljohnnyupgrade','cljourneydownhill','cljsvecx','cljumpingshell','cljustoneboss','clkalikan','clkaratebros','clkarlson','clkartbros','clkillover','cliceagebaby','clkittencannon','clklifur','clknightmaretower','clkonkrio','clkourio','cllaceysflashgames','cllasthorizon','clleaderstrike','cllearntofly','cllearntofly2','cllearntofly3','cllearntoflyidle','clleveldevil','clleverwarriors','cllinerider','cllittlerunmo','cllockthedoor','cllonewolf','cllosangelesshark','cllowknight','cluckyblockobbyEUOPHRATESRIVER','clmadalinstuntcarsmultiplayerfixed','clmadnesss2010','clmadnessaccelerant','clclmadnessambulation','clmadnesscombatdefense','clmcfpsfbhd','clmadnessgemini','clmadnesshydraulic','clmadnessinteractive','clmadnessoffcolor','clmadnesspremediation','clmadnesscombatnexus','clmadnessretaliation','clmadskillsmotocross2','clmadstick','clmadnessstand','clmagictiles3','clmakesureitsclosed','clmanagod','marbleracer','clmariocombat','clmaskedforcesunlimited','clmastermindworldconquerer','clmatrixrampage','clmeatboyflash','clmedalofhonor','clmedievalshark','clmegachess','clmegaminer','clmergeroundracers','clmelonplayground','clmiamishark','clmightyknight','clmightyknight2','clmimic','clmindscape','clmineshooter','EaglercraftZ_1.11.2','Eaglercraft1.12','eaglercraft.1.5.2','Eaglercraft-Beta-1.7.3-Offline','clminecraft1-8-8','EaglercraftX 1.8.8(u29)','Shadow_Client','EaglercraftL_1.9_v0_7_0_Offline_Signed','Eaglercraft-Alpha-1.2.6-Offline','Eaglercraft-Beta-1.3-Offline','Dragonxclient','Eaglercraft-Indev-Offline','clblockcraftparkour','clblockcraftshooter','clminesweeperplus','clminhero','clminicrossword','clminishooters','clminitooth','clmiraginewar','clmobcontrolhtml5','clmoneyrush','clmonstertracks','clmonstertruckportstunt','clmonkeymart','clmotherload','clmotoroadrash','clmotox3mm','clmotox3m2','clmotox3m3','clmotox3mpoolparty','clmotox3mspookyland','clmotox3mwinter','clmountainbikeracer','clmrracer','clmultitask','clmutilate-a-doll','clmxoffroadmaster','clmyfriendpedro','clmyfriendpedroarena','cln','clnaturalselection','clnzp','clneonblaster','clneonrider','clnetattack','clneverendinglegacy','clnewgroundsrumble','clnewyorkshark','clnextdoor','clngon','clnightclubshowdown','clninjabrawl','clnitromemustdie','clnoobminer','clnotyourpawn','clnubbysnumberfactory','clNutsandBoltsScrewingPuzzle','clobby-99-will-lose','clobbyonlyup','clobeythegame','clofflineparadise','clomeganuggetclicker','clonebitadventure','clonenightasfreddy','clonepiecefighting','clonlyup','clÃ–oo','clÊ˜','cloperius','cloppositeday','clorbofcreation','closu','clovofixed','clovo2','clovodimensions','clpapalouienighthunt2','clpapalouiewhenburgersattack','clpapalouiewhenpizzasattack','clpapalouiewhensundaesattack','clpapabakeria','clpapasburgerIIIAAAAA','clpapascheeseria','clpapascupcakeria','clpapadonut','clpapasfreezeria','clpapashotdoggeria','clpapaspancakeria','clpapaspastaria','clpizzapapa','clpapasscooperia','clpapassushiria','clpapastacomia','clpapaswingeria','clpaperio','clpaperio3d','clpaperiomania','clparkingfury','clparkingfury2','clparkingfury3','clparkingrush','clpeacekeeper','clpeggle','clpenaltykicks','clpenguindiner','clpenguinpass','clpereelous','clperfecthotel','clphasma','clpicodriller','clpicohot','clpicolife','clpiconightpunkin','clpicosschool','clpicovsbeardx','clpiecesofcake','clpingpongchaos','clpinkbike','clpixelbattlegroundsio','clpixelcombat2','clpixelquestlostidols','clpixelshooter','clpixelspeedrun','clpixelwarfare','clpizzatower','clplangman','clpvz','clpvz2','clplazmaburst','clplinko','clplonky','clpogo3D','clpokemontowerdefense','clpolicepursuit2','clpolyold','polytrackbutnotflagged','clpoorbunny','clportal2d','clportaldefendersfastbreak','clportaldefendersTD','clportalflash','clporklike','clporter','clpossessquest','clpotatomanseeksthetroof','clpou','clpraxisfighterx','clprecivilationbronzeage','clprehistoricshark','clprimary','clpullfrog','clpunchthedrump','clpuppethockey','clpushyourluck','clquake3','clqwop','clwartheknight']
         };
 
-        // Media files - ADD YOUR MOVIE/SHOW FILES HERE
-        // Example format:
-        // let mediaFiles = [
-        //     'inception.mp4',
-        //     'the-matrix.mp4',
-        //     'breakingbad-s01e01.mp4',
-        //     'breakingbad-s01e02.mp4',
-        //     'breakingbad-s02e01.mp4',
-        //     'stranger-things-s01e01.ts'
-        // ];
-        let mediaFiles = [
-            'Zootopia (2016)',
-            'SpongeBob Movie-Sponge on the Run',
-            'Avengers-Infinity War (2018)',
-            'Avengers.Endgame(2019)',
-            'Beetlejuice Beetlejuice (2024)',
-            'Brightburn (2019)',
-            'Cars (2006)',
-            'Deadpool (2016)',
-            'Deadpool & Wolverine (2024)',
-            'Deadpool 2 (2018)',
-            'Despicable Me 4 (2024)',
-            'Doctor Strange (2016)',
-            'Elf',
-            'Forrest Gump (1994)',
-            'Halloween Ends (2022)',
-            'Halloween Kills (2021)',
-            'Home Alone (1990)',
-            'Home alone 2 lost in New York (1992)',
-            'Inside Out 2 (2024)',
-            'Iron Man 3 (2013)',
-            'IT (2017)',
-            'IT Chapter Two (2019)',
-            'Jaws vs. Kraken (2022)',
-            'Joker (2019)',
-            'Jurassic World Dominion',
-            'King Kong (2005)',
-            'Kingdom of the Planet of the Apes (2024)',
-            'kung fu panda',
-            'Salem_s Lot (2024)',
-            'saw x full movie',
-            'Scream 3 (2000)',
-            'Scream VI',
-            'Shrek 2',
-            'Shrek',
-            'Space Jam A New Legacy',
-            'Spider-Man 2 (2004)',
-            'Spider-Man 3 (2007)',
-            'Spider-Man-Across the Spider-Verse',
-            'Spider-Man-Far from Home (2019)',
-            'Spider-Man-Homecoming',
-            'Spider-Man-No Way Home (2021)',
-            'Spider-Man',
-            'Star Wars-Episode II-Attack of the Clones (2002)',
-            'Star Wars-Episode III-Revenge of the Sith (2005)',
-            'StarWarsEpIVnewhope',
-            'Terrifier 2 (2022)',
-            'Terrifier 3 (2024)',
-            'Terrifier',
-            'The Angry Birds Movie (2016)',
-            'The Garfield Movie (2024)',
-            'The Lorax (2017)',
-            'The Super Mario Bros. Movie',
-            'The Underdoggs (2024)',
-            'The Wolverine (2013)',
-            'Transformers-Dark of the Moon (2011)',
-            'Venom (2018)',
-            'Venom-Let There Be Carnage (2021)'
+        // Media files with extensions
+        const mediaFiles = [
+            'Zootopia (2016).ts',
+            'SpongeBob Movie-Sponge on the Run.mp4',
+            'Avengers-Infinity War (2018).mkv',
+            'Avengers.Endgame(2019).mp4',
+            'Beetlejuice Beetlejuice (2024).mp4',
+            'Brightburn (2019).ts',
+            'Cars (2006).ts',
+            'Deadpool (2016).ts',
+            'Deadpool & Wolverine (2024).mp4',
+            'Deadpool 2 (2018).mp4',
+            'Despicable Me 4 (2024).mp4',
+            'Doctor Strange (2016).mkv',
+            'Elf.mp4',
+            'Forrest Gump (1994).m4v',
+            'Halloween Ends (2022).ts',
+            'Halloween Kills (2021).ts',
+            'Home Alone (1990).mp4',
+            'Home alone 2 lost in New York (1992).mp4',
+            'Inside Out 2 (2024).ts',
+            'Iron Man 3 (2013).mp4',
+            'IT (2017).ts',
+            'IT Chapter Two (2019).mp4',
+            'Jaws vs. Kraken (2022).ts',
+            'Joker (2019).mp4',
+            'Jurassic World Dominion.mp4',
+            'King Kong (2005).mp4',
+            'Kingdom of the Planet of the Apes (2024).ts',
+            'kung fu panda.mp4',
+            'Salem_s Lot (2024).ts',
+            'saw x full movie.mp4',
+            'Scream 3 (2000).ts',
+            'Scream VI.mp4',
+            'Shrek 2.mp4',
+            'Shrek.mp4',
+            'Space Jam A New Legacy.mp4',
+            'Spider-Man 2 (2004).mp4',
+            'Spider-Man 3 (2007).ts',
+            'Spider-Man-Across the Spider-Verse.ts',
+            'Spider-Man-Far from Home (2019).ts',
+            'Spider-Man-Homecoming.mp4',
+            'Spider-Man-No Way Home (2021).mp4',
+            'Spider-Man.ts',
+            'Star Wars-Episode II-Attack of the Clones (2002).ts',
+            'Star Wars-Episode III-Revenge of the Sith (2005).ts',
+            'StarWarsEpIVnewhope.mp4',
+            'Terrifier 2 (2022).mp4',
+            'Terrifier 3 (2024).mkv',
+            'Terrifier.ts',
+            'The Angry Birds Movie (2016).mp4',
+            'The Garfield Movie (2024).ts',
+            'The Lorax (2017).mp4',
+            'The Super Mario Bros. Movie.ts',
+            'The Underdoggs (2024).mp4',
+            'The Wolverine (2013).mp4',
+            'Transformers-Dark of the Moon (2011).ts',
+            'Venom (2018).mp4',
+            'Venom-Let There Be Carnage (2021).mkv'
         ];
 
         const proxies = [
@@ -730,7 +654,6 @@
 
         let media = [];
         let currentMedia = [];
-        let mediaTypes = new Set(['all']);
 
         // Format game name from filename
         function formatGameName(filename) {
@@ -752,7 +675,17 @@
             return 'other';
         }
 
-        // Load games lazily
+        // Format media title from filename
+        function formatMediaTitle(filename) {
+            // Remove extension
+            const nameWithoutExt = filename.replace(/\.(mp4|ts|mkv|m4v)$/i, '');
+            return nameWithoutExt
+                .replace(/[-_]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        // Load games
         function loadGamesLazy() {
             const loadedGames = [];
             
@@ -776,96 +709,24 @@
             return loadedGames;
         }
 
-        // Parse media filename to extract show/movie info
-        function parseMediaFilename(filename) {
-            const ext = filename.match(/\.(mp4|ts)$/i)?.[1];
-            if (!ext) return null;
-
-            const nameWithoutExt = filename.replace(/\.(mp4|ts)$/i, '');
-            
-            // Check if it's a TV show episode (format: showname-s01e01)
-            const episodeMatch = nameWithoutExt.match(/^(.+?)-s(\d+)e(\d+)$/i);
-            
-            if (episodeMatch) {
-                return {
-                    type: 'show',
-                    showName: episodeMatch[1],
-                    season: parseInt(episodeMatch[2]),
-                    episode: parseInt(episodeMatch[3]),
-                    filename: filename,
-                    ext: ext
-                };
-            } else {
-                return {
-                    type: 'movie',
-                    title: nameWithoutExt,
-                    filename: filename,
-                    ext: ext
-                };
-            }
-        }
-
-        // Format title from filename
-        function formatMediaTitle(name) {
-            return name
-                .replace(/[-_]/g, ' ')
-                .split(' ')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
-        }
-
-        // Load media files
+        // Load media files - simplified like games
         function loadMediaFiles() {
-            const parsedMedia = [];
-            const showsMap = new Map();
+            const loadedMedia = [];
             
             for (const file of mediaFiles) {
-                const parsed = parseMediaFilename(file);
-                if (!parsed) continue;
+                const title = formatMediaTitle(file);
+                const path = `${CONFIG.mediaFolder}/${file}`;
                 
-                if (parsed.type === 'movie') {
-                    parsedMedia.push({
-                        type: 'movie',
-                        title: formatMediaTitle(parsed.title),
-                        path: `${CONFIG.mediaFolder}/${parsed.filename}`,
-                        filename: parsed.filename
-                    });
-                    mediaTypes.add('movie');
-                } else {
-                    // Group show episodes
-                    const showKey = parsed.showName;
-                    if (!showsMap.has(showKey)) {
-                        showsMap.set(showKey, {
-                            type: 'show',
-                            title: formatMediaTitle(parsed.showName),
-                            seasons: new Map()
-                        });
-                    }
-                    
-                    const show = showsMap.get(showKey);
-                    if (!show.seasons.has(parsed.season)) {
-                        show.seasons.set(parsed.season, []);
-                    }
-                    
-                    show.seasons.get(parsed.season).push({
-                        episode: parsed.episode,
-                        path: `${CONFIG.mediaFolder}/${parsed.filename}`,
-                        filename: parsed.filename
-                    });
-                    mediaTypes.add('show');
-                }
+                loadedMedia.push({
+                    type: 'movie',
+                    title: title,
+                    description: `Watch ${title}`,
+                    path: path,
+                    filename: file
+                });
             }
             
-            // Convert shows map to array
-            showsMap.forEach(show => {
-                // Sort episodes within each season
-                show.seasons.forEach(episodes => {
-                    episodes.sort((a, b) => a.episode - b.episode);
-                });
-                parsedMedia.push(show);
-            });
-            
-            return parsedMedia;
+            return loadedMedia;
         }
 
         // Initialize the site
@@ -901,24 +762,18 @@
             setupGameModal();
             setupMediaModal();
             setupCategoryFilter();
-            setupMediaTypeFilter();
         }
 
-        // Setup navigation - FIXED
+        // Setup navigation
         function setupNavigation() {
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Remove active from all buttons
                     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                    // Add active to clicked button
                     btn.classList.add('active');
                     
-                    // Get section to show
                     const section = btn.dataset.section;
                     
-                    // Hide all sections
                     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                    // Show selected section
                     document.getElementById(section).classList.add('active');
                 });
             });
@@ -935,21 +790,6 @@
                     const filtered = games.filter(game => game.category === category);
                     currentGames = filtered;
                     renderGames(filtered);
-                }
-            });
-        }
-
-        // Setup media type filter
-        function setupMediaTypeFilter() {
-            document.getElementById('mediaTypeFilter').addEventListener('change', (e) => {
-                const type = e.target.value;
-                if (type === 'all') {
-                    currentMedia = [...media];
-                    renderMedia(media);
-                } else {
-                    const filtered = media.filter(item => item.type === type);
-                    currentMedia = filtered;
-                    renderMedia(filtered);
                 }
             });
         }
@@ -974,7 +814,6 @@
                 </div>
             `).join('');
 
-            // Add click handlers
             document.querySelectorAll('.game-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const gamePath = card.dataset.game;
@@ -1018,39 +857,26 @@
             const mediaGrid = document.getElementById('mediaGrid');
             
             if (mediaToRender.length === 0) {
-                mediaGrid.innerHTML = '<div class="loading">No media found. Add your media files to the movies&shows folder.</div>';
+                mediaGrid.innerHTML = '<div class="loading">No media found</div>';
                 return;
             }
 
-            mediaGrid.innerHTML = mediaToRender.map(item => {
-                const icon = item.type === 'movie' ? '🎬' : '📺';
-                const description = item.type === 'movie' 
-                    ? `Watch ${item.title}` 
-                    : `${item.seasons.size} Season${item.seasons.size > 1 ? 's' : ''}`;
-                
-                // Store data as a data attribute that can be retrieved
-                return `
-                    <div class="media-card" data-media-title="${item.title}" data-media-type="${item.type}">
-                        <div class="media-image">${icon}</div>
-                        <div class="media-info">
-                            <div class="media-title">${item.title}</div>
-                            <div class="media-description">${description}</div>
-                            <span class="media-type">${item.type}</span>
-                        </div>
+            mediaGrid.innerHTML = mediaToRender.map(item => `
+                <div class="media-card" data-path="${item.path}" data-title="${item.title}">
+                    <div class="media-image">🎬</div>
+                    <div class="media-info">
+                        <div class="media-title">${item.title}</div>
+                        <div class="media-description">${item.description}</div>
+                        <span class="media-type">movie</span>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
 
-            // Add click handlers
             document.querySelectorAll('.media-card').forEach(card => {
                 card.addEventListener('click', () => {
-                    const title = card.dataset.mediaTitle;
-                    const type = card.dataset.mediaType;
-                    // Find the full item data from media array
-                    const itemData = mediaToRender.find(m => m.title === title && m.type === type);
-                    if (itemData) {
-                        openMedia(itemData);
-                    }
+                    const path = card.dataset.path;
+                    const title = card.dataset.title;
+                    openMedia(title, path);
                 });
             });
         }
@@ -1073,7 +899,6 @@
                 </div>
             `).join('');
 
-            // Also render in home section
             const activeContainer = document.getElementById('activeProxiesContainer');
             activeContainer.innerHTML = proxies.filter(p => p.status === 'online').map(proxy => `
                 <div class="proxy-item">
@@ -1104,8 +929,7 @@
             function performMediaSearch(query) {
                 const queryLower = query.toLowerCase();
                 const filtered = media.filter(item => 
-                    item.title.toLowerCase().includes(queryLower) ||
-                    item.type.toLowerCase().includes(queryLower)
+                    item.title.toLowerCase().includes(queryLower)
                 );
                 currentMedia = filtered;
                 renderMedia(filtered);
@@ -1202,7 +1026,7 @@
             });
         }
 
-        // Media modal with episode/season selection
+        // Media modal - simplified like game modal
         function setupMediaModal() {
             const mediaModal = document.getElementById('mediaModal');
             const mediaPlayer = document.getElementById('mediaPlayer');
@@ -1210,91 +1034,12 @@
             const closeBtn = document.getElementById('closeMediaBtn');
             const fullscreenBtn = document.getElementById('mediaFullscreenBtn');
             const loadingSpinner = document.getElementById('mediaLoadingSpinner');
-            const episodeSelectorContainer = document.getElementById('episodeSelectorContainer');
-            let currentMediaItem = null;
-            let currentSeason = 1;
-            let currentEpisode = 1;
 
-            window.openMedia = function(item) {
-                currentMediaItem = item;
-                modalTitle.textContent = item.title;
+            window.openMedia = function(title, path) {
+                modalTitle.textContent = title;
                 mediaModal.classList.add('active');
                 loadingSpinner.classList.add('active');
-
-                if (item.type === 'movie') {
-                    episodeSelectorContainer.innerHTML = '';
-                    playMedia(item.path);
-                } else {
-                    renderEpisodeSelector(item);
-                    const firstSeason = Array.from(item.seasons.keys()).sort((a, b) => a - b)[0];
-                    const firstEpisode = item.seasons.get(firstSeason)[0];
-                    currentSeason = firstSeason;
-                    currentEpisode = firstEpisode.episode;
-                    playMedia(firstEpisode.path);
-                }
-            };
-
-            function renderEpisodeSelector(show) {
-                const seasons = Array.from(show.seasons.keys()).sort((a, b) => a - b);
                 
-                episodeSelectorContainer.innerHTML = `
-                    <div class="episode-selector">
-                        <div class="season-tabs" id="seasonTabs"></div>
-                        <div class="episode-grid" id="episodeGrid"></div>
-                    </div>
-                `;
-
-                const seasonTabsContainer = document.getElementById('seasonTabs');
-                const episodeGridContainer = document.getElementById('episodeGrid');
-
-                // Render season tabs
-                seasonTabsContainer.innerHTML = seasons.map(s => 
-                    `<div class="season-tab ${s === currentSeason ? 'active' : ''}" data-season="${s}">Season ${s}</div>`
-                ).join('');
-
-                // Render episodes for current season
-                function renderEpisodes(season) {
-                    const episodes = show.seasons.get(season);
-                    episodeGridContainer.innerHTML = episodes.map(ep => 
-                        `<div class="episode-btn ${ep.episode === currentEpisode && season === currentSeason ? 'active' : ''}" data-path="${ep.path}" data-episode="${ep.episode}" data-season="${season}">
-                            Episode ${ep.episode}
-                        </div>`
-                    ).join('');
-
-                    // Add episode click handlers
-                    episodeGridContainer.querySelectorAll('.episode-btn').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            currentSeason = parseInt(btn.dataset.season);
-                            currentEpisode = parseInt(btn.dataset.episode);
-                            playMedia(btn.dataset.path);
-                            
-                            // Update active states
-                            episodeGridContainer.querySelectorAll('.episode-btn').forEach(b => b.classList.remove('active'));
-                            btn.classList.add('active');
-                        });
-                    });
-                }
-
-                // Initial episode render
-                renderEpisodes(currentSeason);
-
-                // Season tab click handlers
-                seasonTabsContainer.querySelectorAll('.season-tab').forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        const season = parseInt(tab.dataset.season);
-                        currentSeason = season;
-                        
-                        // Update active states
-                        seasonTabsContainer.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
-                        tab.classList.add('active');
-                        
-                        renderEpisodes(season);
-                    });
-                });
-            }
-
-            function playMedia(path) {
-                loadingSpinner.classList.add('active');
                 mediaPlayer.src = path;
                 mediaPlayer.load();
                 
@@ -1304,16 +1049,15 @@
                 
                 mediaPlayer.onerror = () => {
                     loadingSpinner.classList.remove('active');
-                    alert('Error loading media file. Please check if the file exists in the movies&shows folder.');
+                    alert('Error loading media file. Please check if the file exists.');
                 };
-            }
+            };
 
             closeBtn.addEventListener('click', () => {
                 mediaModal.classList.remove('active');
                 mediaPlayer.pause();
                 mediaPlayer.src = '';
                 loadingSpinner.classList.remove('active');
-                episodeSelectorContainer.innerHTML = '';
             });
 
             fullscreenBtn.addEventListener('click', () => {
@@ -1332,12 +1076,11 @@
                     mediaPlayer.pause();
                     mediaPlayer.src = '';
                     loadingSpinner.classList.remove('active');
-                    episodeSelectorContainer.innerHTML = '';
                 }
             });
         }
 
-        // Initialize immediately when DOM is ready
+        // Initialize when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initialize);
         } else {
